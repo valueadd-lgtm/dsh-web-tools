@@ -8,7 +8,7 @@
 
 Empower DeepSeek Harness with unified search and deep content extraction across the open web and social platforms.
 
-**Native-Capability Adaptation Across 8 Web Providers · SearchHints Semantic Compilation · Multi-Source Resilience · Xiaohongshu & Twitter / X Retrieval**
+**Native-Capability Adaptation Across 9 Web Providers · SearchHints Semantic Compilation · Multi-Source Resilience · Xiaohongshu & Twitter / X Retrieval**
 
 <p align="center">
   <a href="https://github.com/A3Boy/dsh-web-tools/stargazers">
@@ -31,7 +31,7 @@ Empower DeepSeek Harness with unified search and deep content extraction across 
 
 When web access depends on a single provider, exhausted quota, rate limits, or timeouts can interrupt retrieval. Wrapping multiple APIs with a naive proxy often flattens them to a lowest common denominator, failing to leverage each provider's specialized search modes, categories, freshness, domain rules, and extraction capabilities.
 
-dsh-web-tools connects Exa, Tavily, Firecrawl, Parallel, Brave, You.com, Jina, SearXNG, Xiaohongshu, and Twitter / X to DSH’s standard `web_search` / `web_fetch` interface.
+dsh-web-tools connects Exa, Tavily, Firecrawl, Parallel, Brave, You.com, You.com (Free), Jina, SearXNG, Xiaohongshu, and Twitter / X to DSH's standard `web_search` / `web_fetch` interface.
 
 While keeping the tool interface unified, dsh-web-tools normalizes search intents through SearchHints and compiles queries into native provider-specific parameters. This leverages each engine's native categories, freshness filters, domain policies, regional targeting, and content extraction, while maximizing uptime through multi-key allocation, automated failover, and dedicated browser profiles.
 
@@ -39,7 +39,7 @@ While keeping the tool interface unified, dsh-web-tools normalizes search intent
 
 **Key Highlights**:
 
-- **Native-Capability Adaptation Across 8 Web Providers**: Keeps the standard `web_search` / `web_fetch` contracts while compiling unified search intent into provider-specific native parameters instead of reducing every backend to the same lowest-common-denominator feature set.
+- **Native-Capability Adaptation Across 9 Web Providers**: Keeps the standard `web_search` / `web_fetch` contracts while compiling unified search intent into provider-specific native parameters instead of reducing every backend to the same lowest-common-denominator feature set.
 - **SearchHints → Provider-Specific Parameter Compilation**: Normalizes technical, research, news, date, region, and domain constraints from queries, compiling them into provider-native parameters through deterministic code without additional LLM latency.
 - **Xiaohongshu & Twitter / X Platform Sources**: Both platforms support signed-in native search, detail extraction, and returned comments or replies through dedicated local browser profiles.
 - **Multi-Source Scheduling & Resilience**: Features multi-API-key pooling, 401 failover, 429 cooldown windows, configurable Ordered / Round-Robin / Random routing, and failover chains.
@@ -72,7 +72,7 @@ While keeping the tool interface unified, dsh-web-tools normalizes search intent
   <img src="https://raw.githubusercontent.com/A3Boy/dsh-web-tools/main/assets/searchOrderAndRouting.png" width="900" alt="dsh-web-tools search strategy and multi-provider routing" />
 </p>
 
-## Native-Capability Adaptation Across 8 Web Providers
+## Native-Capability Adaptation Across 9 Web Providers
 
 The tool interface and search semantics are unified for the DSH agent, but underlying provider capabilities are not.
 
@@ -94,6 +94,7 @@ All adaptations run through deterministic code without invoking an extra LLM cal
 * **Tavily**: Supports `basic` / `advanced` / `fast` / `ultra-fast` search depths; `basic`, `advanced`, and `fast` support `chunks_per_source`, with native `news` / `finance` topics, date ranges, country, and domain constraints.
 * **Brave Search**: LLM Context endpoint with `pd/pw/pm/py` freshness filters, country, and search language.
 * **You.com**: Native **`boost_domains`** soft-weighting, freshness presets, and geo/language targeting.
+* **You.com (Free)**: Keyless You.com web search via the free Agents API — no API key required (100 searches/day per IP), search-only (no native fetch).
 * **Jina**: Query noise reduction and ReaderLM-v2 high-precision markdown extraction.
 * **SearXNG**: Self-hosted metasearch with `categories` (it/science/news) and `time_range`.
 * **Native & Generic Page Extraction (`web_fetch`)**: Automatically routes to provider-native scraping backends (Exa `/contents`, Tavily `/extract`, Firecrawl `/scrape`, Parallel `/v1/extract`, You.com `/v1/contents`, Jina Reader) when available; seamlessly falls back to the **built-in generic HTTP fetcher** (powered by local Defuddle Markdown parsing with SSRF/DNS protection) for SearXNG-only / Brave-only setups or when native extractors fail.
@@ -132,10 +133,10 @@ Agents use `小红书:` or `X:` as a platform-routing prefix. The prefix selects
 
 ## Custom Search Providers & Address Overrides (Issue #9)
 
-In addition to the 8 built-in search adapters and social platforms, dsh-web-tools natively supports **Custom Search Providers** and **Built-in Service Address Overrides**:
+In addition to the 9 built-in search adapters and social platforms, dsh-web-tools natively supports **Custom Search Providers** and **Built-in Service Address Overrides**:
 
 * **Built-in Base URL Overrides**:
-  * All 8 built-in search providers (Exa, Tavily, Firecrawl, Brave, You, Parallel, Jina, SearXNG) support custom service addresses (e.g. self-hosted API gateways, reverse proxies).
+  * All 9 built-in search providers (Exa, Tavily, Firecrawl, Brave, You, You.com (Free), Parallel, Jina, SearXNG) support custom service addresses (e.g. self-hosted API gateways, reverse proxies).
   * Preserves path prefixes (such as `/v1`, `/v2`), prompts for confirmation on foreign destinations to protect API keys, and supports instant restoration to official defaults.
 * **Three Parallel Access Paths (Progressive Modal UX)**:
   * **Compatible Provider API**: Follows the standard Tavily POST JSON specification with zero manual mapping. Ideal for self-hosted proxies and compatible gateways.

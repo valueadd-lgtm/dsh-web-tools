@@ -10,6 +10,7 @@ import { ParallelProvider } from "./parallel.ts";
 import { SearxngProvider } from "./searxng.ts";
 import { TavilyProvider } from "./tavily.ts";
 import { YouProvider, youQuota } from "./you.ts";
+import { YoucomProvider } from "./youcom.ts";
 import type { QuotaProvider, QuotaSnapshot } from "../quota.ts";
 import { dashboardOnlyQuota, localUsageQuota, selfHostedQuota } from "../quota.ts";
 import { tavilyQuota } from "./tavily-quota.ts";
@@ -30,6 +31,7 @@ export const PROVIDERS: Record<string, ProviderWithQuota> = {
   parallel: ParallelProvider,
   brave: { ...BraveProvider, quota: (key, _base, signal) => braveQuota(key, _base, signal) },
   you: { ...YouProvider, quota: (key, _base, signal) => youQuota(key, signal) },
+  youcom: YoucomProvider,
   jina: { ...JinaProvider, quota: (key, _base, signal) => jinaQuota(key, signal) },
   searxng: SearxngProvider,
 };
@@ -42,6 +44,7 @@ export const PROVIDER_LIST: ProviderWithQuota[] = [
   ParallelProvider,
   BraveProvider,
   YouProvider,
+  YoucomProvider,
   JinaProvider,
   SearxngProvider,
 ];
