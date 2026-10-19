@@ -88,6 +88,9 @@ export const PROVIDER_ENDPOINTS: Record<string, { search: ProviderEndpoint; extr
   searxng: {
     search: { defaultBaseUrl: "http://127.0.0.1:8080", path: "/search", url: "http://127.0.0.1:8080/search", host: "127.0.0.1", overridable: true },
   },
+  youcom: {
+    search: { defaultBaseUrl: "https://api.you.com/v1", path: "/agents/search", url: "https://api.you.com/v1/agents/search", host: "api.you.com", overridable: true },
+  },
 };
 
 /**
